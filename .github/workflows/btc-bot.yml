@@ -61,4 +61,4 @@ jobs:
           else
             git commit -m "Update paper-trading records"
             git push
-          fi
+          fi 
