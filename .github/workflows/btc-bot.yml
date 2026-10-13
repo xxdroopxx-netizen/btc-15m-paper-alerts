@@ -1,5 +1,5 @@
- 
-name: BTC 15-Minute Paper Signals
+
+name: BTC 15m Paper Trading Bot
 
 on:
   workflow_dispatch:
@@ -10,21 +10,16 @@ permissions:
   contents: write
 
 concurrency:
-  group: btc-paper-signals
+  group: btc-15m-paper-bot
   cancel-in-progress: false
 
 jobs:
-  paper-signals:
+  paper-bot:
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
-    env:
-      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-      TRADING_MODE: paper
-
     steps:
-      - name: Check out bot code
+      - name: Check out repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -32,32 +27,29 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then
-            pip install -r requirements.txt
-          fi
-
       - name: Run BTC paper signal bot
-        run: |
-          if [ -f main.py ]; then
-            python -u main.py
-          elif [ -f bot.py ]; then
-            python -u bot.py
-          else
-            echo "ERROR: Neither main.py nor bot.py was found."
-            exit 1
-          fi
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TRADING_MODE: paper
+        run: python -u main.py
 
       - name: Save paper-trading records
         if: success()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add paper_state.json paper_trades.csv
+
+          if [ -f paper_state.json ]; then
+            git add paper_state.json
+          fi
+
+          if [ -f paper_trades.csv ]; then
+            git add paper_trades.csv
+          fi
+
           if git diff --cached --quiet; then
-            echo "No new records to save."
+            echo "No new paper-trading records to save."
           else
             git commit -m "Update paper-trading records"
             git push
