@@ -21,7 +21,7 @@ def get_json(url):
 def send_telegram(message):
     url = (
         f"https://api.telegram.org/bot{TOKEN}/sendMessage"
-    )
+    
     payload = urllib.parse.urlencode({
         "chat_id": CHAT_ID,
         "text": message
