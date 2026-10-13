@@ -7,7 +7,7 @@ on:
     - cron: "*/15 * * * *"
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: btc-paper-signals
@@ -48,4 +48,17 @@ jobs:
           else
             echo "ERROR: Neither main.py nor bot.py was found."
             exit 1
+          fi
+
+      - name: Save paper-trading records
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add paper_state.json paper_trades.csv
+          if git diff --cached --quiet; then
+            echo "No new records to save."
+          else
+            git commit -m "Update paper-trading records"
+            git push
           fi
