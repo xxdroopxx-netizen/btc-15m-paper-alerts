@@ -42,8 +42,7 @@ def load_state():
 def main():
     # Public market data only. No exchange trading credentials.
     url = (
-        "https://api.binance.com/api/v3/klines"
-        "?symbol=BTCUSDT&interval=15m&limit=60"
+        https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=15m&limit=60
     )
     candles = get_json(url)
 
