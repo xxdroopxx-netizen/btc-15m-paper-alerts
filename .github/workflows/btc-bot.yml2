@@ -1,0 +1,51 @@
+
+name: BTC 15-Minute Paper Signals
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: btc-paper-signals
+  cancel-in-progress: false
+
+jobs:
+  paper-signals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      TRADING_MODE: paper
+
+    steps:
+      - name: Check out bot code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+
+      - name: Run BTC paper signal bot
+        run: |
+          if [ -f main.py ]; then
+            python -u main.py
+          elif [ -f bot.py ]; then
+            python -u bot.py
+          else
+            echo "ERROR: Neither main.py nor bot.py was found."
+            exit 1
+          fi
