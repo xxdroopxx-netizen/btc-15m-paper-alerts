@@ -1,9 +1,9 @@
 {
-  "last_candle": 1791978300,
+  "last_candle": 1791981000,
   "position": null,
-  "realized_pnl": -1.8250831303542383,
-  "closed_trades": 4,
+  "realized_pnl": -3.34592746632998,
+  "closed_trades": 5,
   "wins": 0,
   "peak_equity": 1000.0,
-  "max_drawdown_pct": 0.18250831303541873
+  "max_drawdown_pct": 0.3345927466329954
 }
