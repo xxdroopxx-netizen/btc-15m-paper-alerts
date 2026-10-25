@@ -1,6 +1,11 @@
 {
-  "last_candle": 1792931400,
-  "position": null,
+  "last_candle": 1792933200,
+  "position": {
+    "entry_time": "2026-10-25 12:45 UTC",
+    "entry_price": 80388.07394999999,
+    "quantity_btc": 0.0012439656168674758,
+    "entry_fee": 0.1
+  },
   "realized_pnl": -13.356421533571277,
   "closed_trades": 33,
   "wins": 3,
