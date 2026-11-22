@@ -1,14 +1,14 @@
 {
-  "last_candle": 1795341600,
+  "last_candle": 1795368600,
   "position": {
-    "entry_time": "2026-11-22 08:15 UTC",
-    "entry_price": 59687.70894,
-    "quantity_btc": 0.0016753868053559103,
+    "entry_time": "2026-11-22 16:00 UTC",
+    "entry_price": 61014.181845,
+    "quantity_btc": 0.0016389632209449158,
     "entry_fee": 0.1
   },
-  "realized_pnl": -44.170265742663055,
-  "closed_trades": 104,
-  "wins": 16,
+  "realized_pnl": -42.98579094676213,
+  "closed_trades": 105,
+  "wins": 17,
   "peak_equity": 1000.0,
   "max_drawdown_pct": 4.684772507751165
 }
